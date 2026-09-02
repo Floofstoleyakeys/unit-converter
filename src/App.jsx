@@ -22,7 +22,7 @@ const categoryInfo = {
 };
 
 const theme = createTheme({
-  palette: { primary: { main: '#2457d6' }, background: { default: '#f5f7fc' } },
+  palette: { primary: { main: '#2457d6' }, background: { default: '#ff1493' } },
   typography: { fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif', h3: { fontWeight: 800 } },
   shape: { borderRadius: 16 },
 });
@@ -63,7 +63,7 @@ function App() {
   function swap() { setFrom(to); setTo(from); setResult(null); }
 
   return <ThemeProvider theme={theme}><CssBaseline />
-    <Box sx={{ minHeight: '100vh', py: { xs: 4, md: 8 }, background: 'radial-gradient(circle at 50% -10%, #dfe9ff, transparent 38%), #f5f7fc' }}>
+    <Box sx={{ minHeight: '100vh', py: { xs: 4, md: 8 }, background: 'radial-gradient(circle at 50% -10%, #ff9bd2, transparent 42%), #ff1493' }}>
       <Container maxWidth="md">
         <Stack alignItems="center" spacing={1} sx={{ mb: 5, textAlign: 'center' }}>
           <Box sx={{ bgcolor: 'primary.main', color: 'white', width: 52, height: 52, borderRadius: 3, display: 'grid', placeItems: 'center' }}><SwapHorizRoundedIcon fontSize="large" /></Box>
