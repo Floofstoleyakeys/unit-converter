@@ -40,10 +40,10 @@ jobs:
       - name: Restart backend
         run: sudo systemctl restart unit-converter.service
 
-      - name: Verify backend
+      - name: Verify backend health
         run: |
           curl --fail --retry 10 --retry-delay 1 --retry-connrefused \
-            http://127.0.0.1:3001/api/units
+            http://127.0.0.1:3001/api/health
 
       - name: Verify website
         run: curl -f https://foxology.xyz/
