@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install dependencies
         run: npm ci
@@ -41,7 +41,9 @@ jobs:
         run: sudo systemctl restart unit-converter.service
 
       - name: Verify backend
-        run: curl -f http://127.0.0.1:3001/api/units
+        run: |
+          curl --fail --retry 10 --retry-delay 1 --retry-connrefused \
+            http://127.0.0.1:3001/api/units
 
       - name: Verify website
         run: curl -f https://foxology.xyz/
