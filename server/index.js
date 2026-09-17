@@ -33,6 +33,15 @@ function convertTemperature(value, from, to) {
   return to === 'celsius' ? celsius : to === 'fahrenheit' ? celsius * 9 / 5 + 32 : celsius + 273.15;
 }
 
+app.get("/api/health", (req, res) => {
+  console.log(`[INFO] Health check requested from ${req.ip}`);
+
+  res.status(200).json({
+    status: "ok",
+    service: "unit-converter-api"
+  });
+});
+
 app.get('/api/units', (_req, res) => res.json(units));
 
 app.post('/api/convert', (req, res) => {
