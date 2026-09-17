@@ -37,7 +37,7 @@ function App() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => { fetch('http://localhost:3001/api/units').then(r => r.ok ? r.json() : Promise.reject()).then(setUnits).catch(() => {}); }, []);
+  useEffect(() => { fetch('/api/units').then(r => r.ok ? r.json() : Promise.reject()).then(setUnits).catch(() => {}); }, []);
   const available = useMemo(() => units[category] || {}, [units, category]);
   const format = number => new Intl.NumberFormat('en-US', { maximumFractionDigits: 8 }).format(number);
 
@@ -48,7 +48,7 @@ function App() {
       setResult(null); setLoading(false); return;
     }
     try {
-      const response = await fetch('http://localhost:3001/api/convert', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ category, from, to, value }) });
+      const response = await fetch('/api/convert', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ category, from, to, value }) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
       setResult(data.result);

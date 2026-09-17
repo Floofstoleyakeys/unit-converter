@@ -52,4 +52,6 @@ app.post('/api/convert', (req, res) => {
   res.json({ result, from: units[category][from], to: units[category][to] });
 });
 
-app.listen(PORT, () => console.log(`Conversion API listening at http://localhost:${PORT}`));
+app.listen(PORT, '127.0.0.1', () => {
+  console.log(`Conversion API listening at http://localhost:${PORT}`);
+});
