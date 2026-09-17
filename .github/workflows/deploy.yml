@@ -1,0 +1,47 @@
+name: Deploy Unit Converter
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build React frontend
+        run: npm run build
+
+      - name: Update application source
+        run: |
+          rsync -a --delete \
+            --exclude='.git/' \
+            --exclude='node_modules/' \
+            --exclude='dist/' \
+            ./ /home/ubuntu/unit-converter/
+
+      - name: Install production dependencies
+        working-directory: /home/ubuntu/unit-converter
+        run: npm ci
+
+      - name: Deploy frontend
+        run: |
+          rsync -a --delete \
+            /home/ubuntu/unit-converter/dist/ \
+            /var/www/unit-converter/
+
+      - name: Restart backend
+        run: sudo systemctl restart unit-converter.service
+
+      - name: Verify backend
+        run: curl -f http://127.0.0.1:3001/api/units
+
+      - name: Verify website
+        run: curl -f https://foxology.xyz/
